@@ -10,11 +10,27 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:id="@+id/forecast_list"
             android:orientation="vertical"
-            android:padding="@dimen/space_12"
-            android:background="@color/forecast_area_blue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/usth_logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_12"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/desc_usth_logo"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/forecast_list"
+                android:orientation="vertical"
+                android:padding="@dimen/space_12"
+                android:background="@color/forecast_area_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

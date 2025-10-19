@@ -21,6 +21,7 @@
     <string name="action_settings">Settings</string>
     <string name="refresh_message">Weather data refreshed</string>
     <string name="refreshing_message">Refreshing weather data…</string>
+    <string name="refresh_failed">Unable to download the USTH logo</string>
 
     <!-- PrefActivity -->
     <string name="pref_placeholder">Preferences screen</string>
@@ -51,4 +52,5 @@
         <item>24°–26°</item>
         <item>23°–27°</item>
     </string-array>
+    <string name="desc_usth_logo">USTH logo</string>
 </resources>

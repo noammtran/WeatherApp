@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.util.TypedValue;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,12 +18,18 @@ import androidx.fragment.app.Fragment;
 public class ForecastFragment extends Fragment {
 
     @Nullable
+    private ImageView usthLogoView;
+    @Nullable
+    private Bitmap pendingLogoBitmap;
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_forecast, container, false);
+        usthLogoView = root.findViewById(R.id.usth_logo);
         LinearLayout list = root.findViewById(R.id.forecast_list);
 
         Resources res = getResources();
@@ -57,8 +64,27 @@ public class ForecastFragment extends Fragment {
             list.addView(divider);
         }
 
+        if (pendingLogoBitmap != null) {
+            setLogoBitmap(pendingLogoBitmap);
+        }
+
+
         return root;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (pendingLogoBitmap == null) {
+            if (getActivity() instanceof WeatherActivity) {
+                Bitmap latestLogo = ((WeatherActivity) getActivity()).getLatestLogoBitmap();
+                if (latestLogo != null) {
+                    setLogoBitmap(latestLogo);
+                }
+            }
+        }
+    }
+
 
     private View buildRow(String day, int iconRes, String cond, String temp) {
         LinearLayout row = new LinearLayout(requireContext());
@@ -115,4 +141,19 @@ public class ForecastFragment extends Fragment {
         float d = getResources().getDisplayMetrics().density;
         return Math.round(v * d);
     }
+
+    public void setLogoBitmap(@Nullable Bitmap bitmap) {
+        pendingLogoBitmap = bitmap;
+        if (usthLogoView == null) {
+            return;
+        }
+        if (bitmap != null) {
+            usthLogoView.setImageBitmap(bitmap);
+            usthLogoView.setVisibility(View.VISIBLE);
+        } else {
+            usthLogoView.setImageDrawable(null);
+            usthLogoView.setVisibility(View.GONE);
+        }
+    }
+
 }

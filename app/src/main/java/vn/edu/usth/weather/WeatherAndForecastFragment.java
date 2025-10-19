@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,17 @@ public class WeatherAndForecastFragment extends Fragment {
             ft.commit();
         }
     }
+
+    public void updateForecastLogo(@Nullable Bitmap bitmap) {
+        if (!isAdded()) {
+            return;
+        }
+        Fragment forecast = getChildFragmentManager().findFragmentByTag("forecast");
+        if (forecast instanceof ForecastFragment) {
+            ((ForecastFragment) forecast).setLogoBitmap(bitmap);
+        }
+    }
+
     private int getCityNameRes() {
         Bundle args = getArguments();
         if (args == null) {
