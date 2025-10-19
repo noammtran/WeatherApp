@@ -13,7 +13,7 @@ public class WeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weather);
 
         ViewPager pager = findViewById(R.id.pager);
-        WeatherPagerAdapter adapter = new WeatherPagerAdapter(getSupportFragmentManager());
+        WeatherPagerAdapter adapter = new WeatherPagerAdapter(getSupportFragmentManager(), this);
         pager.setOffscreenPageLimit(adapter.getCount() - 1);
         pager.setAdapter(adapter);
 
