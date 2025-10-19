@@ -6,6 +6,8 @@
     <string name="city_hanoi">HANOI, VIETNAM</string>
     <string name="city_paris">PARIS, FRANCE</string>
     <string name="city_toulouse">TOULOUSE, FRANCE</string>
+    <dimen name="forecast_day_width">36dp</dimen>
+    <dimen name="forecast_divider_thickness">1dp</dimen>
 
     <!-- WeatherFragment -->
     <string name="label_city">%1$s</string>
@@ -27,5 +29,17 @@
         <item>Mostly Cloudy</item>
         <item>Thunderstorms</item>
         <item>Scattered Thunderstorms</item>
+    </string-array>
+    <string-array name="forecast_temps_sample">
+        <item>24°–31°</item>
+        <item>24°–30°</item>
+        <item>22°–23°</item>
+        <item>22°–27°</item>
+        <item>22°–30°</item>
+        <item>24°–31°</item>
+        <item>25°–28°</item>
+        <item>24°–27°</item>
+        <item>24°–26°</item>
+        <item>23°–27°</item>
     </string-array>
 </resources>

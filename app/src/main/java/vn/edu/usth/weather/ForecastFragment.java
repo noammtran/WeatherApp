@@ -1,5 +1,6 @@
 package vn.edu.usth.weather;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +25,12 @@ public class ForecastFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_forecast, container, false);
         LinearLayout list = root.findViewById(R.id.forecast_list);
 
-        String[] days  = getResources().getStringArray(R.array.days_short);
-        String[] conds = getResources().getStringArray(R.array.conds_sample);
-        String[] temps = {"24°–31°","24°–30°","22°–23°","22°–27°","22°–30°","24°–31°",
-                "25°–28°","24°–27°","24°–26°","23°–27°"};
+        Resources res = getResources();
+
+        String[] days  = res.getStringArray(R.array.days_short);
+        String[] conds = res.getStringArray(R.array.conds_sample);
+        String[] temps = res.getStringArray(R.array.forecast_temps_sample);
+
         int[] icons = {
                 R.drawable.alert_avalanche_danger,      // icon
                 R.drawable.alert_avalanche_danger,
@@ -45,9 +48,10 @@ public class ForecastFragment extends Fragment {
             ));
 
             View divider = new View(requireContext());
-            divider.setBackgroundColor(getResources().getColor(R.color.forecast_divider));
+            divider.setBackgroundColor(res.getColor(R.color.forecast_divider));
             divider.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, dp(1)));
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    res.getDimensionPixelSize(R.dimen.forecast_divider_thickness)));
             list.addView(divider);
         }
 
@@ -57,22 +61,28 @@ public class ForecastFragment extends Fragment {
     private View buildRow(String day, int iconRes, String cond, String temp) {
         LinearLayout row = new LinearLayout(requireContext());
         row.setOrientation(LinearLayout.HORIZONTAL);
-        int padV = dp(8), padH = dp(12);
+        Resources res = getResources();
+        int padV = res.getDimensionPixelSize(R.dimen.space_8);
+        int padH = res.getDimensionPixelSize(R.dimen.space_12);
         row.setPadding(padH, padV, padH, padV);
         row.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         TextView tvDay = new TextView(requireContext());
         tvDay.setText(day);
-        tvDay.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        LinearLayout.LayoutParams lpDay = new LinearLayout.LayoutParams(dp(36),
+        tvDay.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                res.getDimension(R.dimen.text_body));
+        LinearLayout.LayoutParams lpDay = new LinearLayout.LayoutParams(
+                res.getDimensionPixelSize(R.dimen.forecast_day_width),
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         tvDay.setLayoutParams(lpDay);
         row.addView(tvDay);
 
         ImageView iv = new ImageView(requireContext());
-        LinearLayout.LayoutParams lpIcon = new LinearLayout.LayoutParams(dp(24), dp(24));
-        lpIcon.setMargins(dp(8), 0, dp(8), 0);
+        int iconSize = res.getDimensionPixelSize(R.dimen.icon_24);
+        LinearLayout.LayoutParams lpIcon = new LinearLayout.LayoutParams(iconSize, iconSize);
+        int space8 = res.getDimensionPixelSize(R.dimen.space_8);
+        lpIcon.setMargins(space8, 0, space8, 0);
         iv.setLayoutParams(lpIcon);
         iv.setImageResource(iconRes);
         row.addView(iv);
@@ -84,11 +94,13 @@ public class ForecastFragment extends Fragment {
 
         TextView tvCond = new TextView(requireContext());
         tvCond.setText(cond);
-        tvCond.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        tvCond.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                res.getDimension(R.dimen.text_body));
 
         TextView tvTemp = new TextView(requireContext());
         tvTemp.setText( temp );
-        tvTemp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvTemp.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                res.getDimension(R.dimen.text_small));
 
         col.addView(tvCond);
         col.addView(tvTemp);
