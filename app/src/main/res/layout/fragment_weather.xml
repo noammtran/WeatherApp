@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@color/weather_area_green"
-    android:background="@dimen/space_12">
+    android:padding="@dimen/space_12"
+    android:background="@color/weather_area_green">
 
     <TextView
         android:id="@+id/tvTemp"
@@ -13,7 +13,7 @@
         android:textColor="@color/weather_text"
         android:textSize="@dimen/text_title"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/tvCity"
@@ -23,7 +23,7 @@
         android:textColor="@color/weather_text"
         android:textSize="@dimen/text_body"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/tvDesc"
@@ -34,13 +34,13 @@
         android:textSize="@dimen/text_body"
         android:layout_below="@id/tvTemp"
         android:layout_alignStart="@id/tvTemp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="@dimen/space_4"/>
 
     <ImageView
         android:id="@+id/imgWeather"
         android:layout_width="@dimen/icon_128"
         android:layout_height="@dimen/icon_128"
         android:src="@drawable/alert_avalanche_danger"
-        android:contentDescription="@drawable/ic_cloudy_big"
-        android:layout_centerInParent="true" />
+        android:contentDescription="@string/desc_weather_icon"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

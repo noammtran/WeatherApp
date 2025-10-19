@@ -9,10 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.annotation.StringRes;
 
 public class WeatherAndForecastFragment extends Fragment {
 
+    private static final String ARG_CITY_NAME_RES = "city_name_res";
+
     public WeatherAndForecastFragment() { }
+
+    public static WeatherAndForecastFragment newInstance(@StringRes int cityNameResId) {
+        WeatherAndForecastFragment fragment = new WeatherAndForecastFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_CITY_NAME_RES, cityNameResId);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -28,9 +39,18 @@ public class WeatherAndForecastFragment extends Fragment {
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            WeatherFragment weatherFragment = WeatherFragment.newInstance(getCityNameRes());
+            ft.replace(R.id.weather_container, weatherFragment, "weather");
             ft.replace(R.id.weather_container, new WeatherFragment(), "weather");
             ft.replace(R.id.forecast_container, new ForecastFragment(), "forecast");
             ft.commit();
         }
+    }
+    private int getCityNameRes() {
+        Bundle args = getArguments();
+        if (args == null) {
+            return 0;
+        }
+        return args.getInt(ARG_CITY_NAME_RES, 0);
     }
 }

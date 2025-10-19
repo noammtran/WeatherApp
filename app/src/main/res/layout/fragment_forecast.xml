@@ -6,7 +6,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:padding="@dimen/space_16"
         android:fillViewport="true">
 
         <LinearLayout
@@ -15,6 +15,6 @@
             android:padding="@dimen/space_12"
             android:background="@color/forecast_area_blue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
     </ScrollView>
 </FrameLayout>

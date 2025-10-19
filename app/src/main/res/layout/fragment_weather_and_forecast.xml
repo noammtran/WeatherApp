@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Trên: vùng xanh (WeatherFragment) -->
+
     <FrameLayout
         android:id="@+id/weather_container"
         android:layout_width="match_parent"
-        android:layout_height="220dp" />
+        android:layout_height="@dimen/weather_header_height"/>
 
-    <!-- Dưới: danh sách dự báo (ForecastFragment) -->
+
     <FrameLayout
         android:id="@+id/forecast_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 </LinearLayout>

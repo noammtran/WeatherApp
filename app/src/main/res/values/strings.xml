@@ -8,9 +8,11 @@
     <string name="city_toulouse">TOULOUSE, FRANCE</string>
 
     <!-- WeatherFragment -->
-    <string name="label_city">Paris</string>
+    <string name="label_city">%1$s</string>
+    <string name="label_city_default">Paris</string>
     <string name="label_desc_cloudy">Cloudy</string>
     <string name="label_temp_c">%1$d°C</string>
+    <string name="desc_weather_icon">Icon showing current weather conditions</string>
 
     <!-- ForecastFragment -->
     <string-array name="days_short">
