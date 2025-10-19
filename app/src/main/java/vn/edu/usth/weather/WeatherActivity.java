@@ -6,17 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 
 import android.util.Log;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -27,13 +19,23 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
 
+import android.widget.ImageView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
+
 public class WeatherActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "WeatherActivity";
     private static final String LOGO_URL = "https://usth.edu.vn/wp-content/uploads/2020/11/logo-usth-1024x381-1.png";
 
+    private static final String LOGO_REQUEST_TAG = "usth_logo_request";
     @Nullable
     private Bitmap usthLogoBitmap;
+
+    @Nullable
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,10 @@ public class WeatherActivity extends AppCompatActivity {
 
         TabLayout tabs = findViewById(R.id.tab_layout);
         tabs.setupWithViewPager(pager);
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestUSTHLogo(false);
+
     }
 
     @Override
@@ -62,9 +68,7 @@ public class WeatherActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            Toast.makeText(this, R.string.refreshing_message, Toast.LENGTH_SHORT).show();
-
-            new RefreshWeatherTask(this).execute();
+            requestUSTHLogo(true);
             return true;
         } else if (id == R.id.action_settings) {
             Intent intent = new Intent(this, PrefActivity.class);
@@ -94,59 +98,53 @@ public class WeatherActivity extends AppCompatActivity {
         }
     }
 
-    private static class RefreshWeatherTask extends AsyncTask<Void, Void, Bitmap> {
-
-        private final WeakReference<WeatherActivity> activityReference;
-
-        RefreshWeatherTask(WeatherActivity activity) {
-            activityReference = new WeakReference<>(activity);
+    private void requestUSTHLogo(boolean showUserFeedback) {
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
 
-        @Override
-        protected Bitmap doInBackground(Void... voids) {
-            HttpURLConnection connection = null;
-            InputStream inputStream = null;
-            try {
-                URL url = new URL(LOGO_URL);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(10000);
-                connection.setReadTimeout(10000);
-                connection.setInstanceFollowRedirects(true);
-                connection.setDoInput(true);
-                connection.connect();
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    return null;
-                }
-                inputStream = connection.getInputStream();
-                return BitmapFactory.decodeStream(inputStream);
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "Failed to download USTH logo", e);
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (IOException ignored) {
+        if (showUserFeedback) {
+            Toast.makeText(this, R.string.refreshing_message, Toast.LENGTH_SHORT).show();
+        }
+        requestQueue.cancelAll(LOGO_REQUEST_TAG);
+
+        ImageRequest request = new ImageRequest(
+                LOGO_URL,
+                bitmap -> {
+                    updateForecastLogo(bitmap);
+                    if (showUserFeedback) {
+                        Toast.makeText(this, R.string.refresh_message, Toast.LENGTH_SHORT).show();
+                    }
+                },
+                0,
+                0,
+                ImageView.ScaleType.FIT_CENTER,
+                Bitmap.Config.ARGB_8888,
+                error -> {
+                    Log.e(LOG_TAG, "Failed to download USTH logo", error);
+                    if (showUserFeedback) {
+                        Toast.makeText(this, R.string.refresh_failed, Toast.LENGTH_SHORT).show();
                     }
                 }
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-            return null;
-        }
+        );
 
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            WeatherActivity activity = activityReference.get();
-            if (activity == null) {
-                return;
-            }
-            if (bitmap != null) {
-                activity.updateForecastLogo(bitmap);
-                Toast.makeText(activity, R.string.refresh_message, Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(activity, R.string.refresh_failed, Toast.LENGTH_SHORT).show();
-            }
+        request.setTag(LOGO_REQUEST_TAG);
+        requestQueue.add(request);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (requestQueue != null) {
+            requestQueue.cancelAll(LOGO_REQUEST_TAG);
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (requestQueue != null) {
+            requestQueue.stop();
+            requestQueue = null;
         }
     }
 }
