@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -41,7 +43,17 @@ public class WeatherActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            Toast.makeText(this, R.string.refresh_message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.refreshing_message, Toast.LENGTH_SHORT).show();
+
+            Handler handler = new Handler(Looper.getMainLooper());
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                handler.post(() -> Toast.makeText(this, R.string.refresh_message, Toast.LENGTH_SHORT).show());
+            }).start();
             return true;
         } else if (id == R.id.action_settings) {
             Intent intent = new Intent(this, PrefActivity.class);
