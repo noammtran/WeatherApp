@@ -7,6 +7,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.AsyncTask;
+
+import java.lang.ref.WeakReference;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -45,15 +48,7 @@ public class WeatherActivity extends AppCompatActivity {
         if (id == R.id.action_refresh) {
             Toast.makeText(this, R.string.refreshing_message, Toast.LENGTH_SHORT).show();
 
-            Handler handler = new Handler(Looper.getMainLooper());
-            new Thread(() -> {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-                handler.post(() -> Toast.makeText(this, R.string.refresh_message, Toast.LENGTH_SHORT).show());
-            }).start();
+            new RefreshWeatherTask(this).execute();
             return true;
         } else if (id == R.id.action_settings) {
             Intent intent = new Intent(this, PrefActivity.class);
@@ -61,5 +56,32 @@ public class WeatherActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private static class RefreshWeatherTask extends AsyncTask<Void, Void, String> {
+
+        private final WeakReference<WeatherActivity> activityReference;
+
+        RefreshWeatherTask(WeatherActivity activity) {
+            activityReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            WeatherActivity activity = activityReference.get();
+            return activity != null ? activity.getString(R.string.refresh_message) : null;
+        }
+
+        @Override
+        protected void onPostExecute(String message) {
+            WeatherActivity activity = activityReference.get();
+            if (activity != null && message != null) {
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
