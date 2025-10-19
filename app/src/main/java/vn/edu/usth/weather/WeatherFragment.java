@@ -42,7 +42,7 @@ public class WeatherFragment extends Fragment {
         tvTemp.setText(getString(R.string.label_temp_c, 12));
         tvCity.setText(resolveCityLabel());
         tvDesc.setText(R.string.label_desc_cloudy);
-        img.setImageResource(R.drawable.ic_cloudy_big);
+        img.setImageResource(R.drawable.ic_cloudy);
 
         return root;
     }
