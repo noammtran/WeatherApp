@@ -28,8 +28,7 @@ import com.android.volley.toolbox.Volley;
 public class WeatherActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "WeatherActivity";
-    private static final String LOGO_URL = "https://usth.edu.vn/wp-content/uploads/2020/11/logo-usth-1024x381-1.png";
-
+    private static final String LOGO_URL = "";
     private static final String LOGO_REQUEST_TAG = "usth_logo_request";
     @Nullable
     private Bitmap usthLogoBitmap;
