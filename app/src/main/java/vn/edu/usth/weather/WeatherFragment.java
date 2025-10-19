@@ -35,7 +35,6 @@ public class WeatherFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_weather, container, false);
 
         TextView tvTemp = root.findViewById(R.id.tvTemp);
-        tvTemp.setText(getString(R.string.label_temp_c, 12));
         TextView tvCity = root.findViewById(R.id.tvCity);
         TextView tvDesc = root.findViewById(R.id.tvDesc);
         ImageView img   = root.findViewById(R.id.imgWeather);
@@ -43,11 +42,7 @@ public class WeatherFragment extends Fragment {
         tvTemp.setText(getString(R.string.label_temp_c, 12));
         tvCity.setText(resolveCityLabel());
         tvDesc.setText(R.string.label_desc_cloudy);
-
-        tvTemp.setText("12°C");
-        tvCity.setText("Paris");
-        tvDesc.setText("Cloudy");
-        img.setImageResource(R.drawable.alert_avalanche_danger);
+        img.setImageResource(R.drawable.ic_cloudy_big);
 
         return root;
     }

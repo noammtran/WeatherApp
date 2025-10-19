@@ -32,11 +32,13 @@ public class ForecastFragment extends Fragment {
         String[] temps = res.getStringArray(R.array.forecast_temps_sample);
 
         int[] icons = {
-                R.drawable.alert_avalanche_danger,      // icon
-                R.drawable.alert_avalanche_danger,
-                R.drawable.alert_avalanche_danger,
-                R.drawable.alert_avalanche_danger,
-                R.drawable.alert_avalanche_danger       // icon
+                R.drawable.ic_partly_cloundy,
+                R.drawable.ic_cloudy,
+                R.drawable.ic_showers_rain,
+                R.drawable.ic_rain,
+                R.drawable.ic_scattered_showers,
+                R.drawable.ic_thunderstorm,
+                R.drawable.ic_scattered_thunderstorm
         };
 
         for (int i = 0; i < days.length; i++) {

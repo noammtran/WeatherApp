@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/space_12"
-    android:background="@color/weather_area_green">
+    android:background="@drawable/frame">
 
     <TextView
         android:id="@+id/tvTemp"
@@ -40,7 +40,7 @@
         android:id="@+id/imgWeather"
         android:layout_width="@dimen/icon_128"
         android:layout_height="@dimen/icon_128"
-        android:src="@drawable/alert_avalanche_danger"
+        android:src="@drawable/ic_cloudy"
         android:contentDescription="@string/desc_weather_icon"
         android:layout_centerInParent="true"/>
 </RelativeLayout>
