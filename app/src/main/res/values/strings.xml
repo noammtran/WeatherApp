@@ -16,6 +16,14 @@
     <string name="label_temp_c">%1$d°C</string>
     <string name="desc_weather_icon">Icon showing current weather conditions</string>
 
+    <!-- Menu -->
+    <string name="action_refresh">Refresh</string>
+    <string name="action_settings">Settings</string>
+    <string name="refresh_message">Weather data refreshed</string>
+
+    <!-- PrefActivity -->
+    <string name="pref_placeholder">Preferences screen</string>
+
     <!-- ForecastFragment -->
     <string-array name="days_short">
         <item>Mon</item><item>Tue</item><item>Wed</item>
