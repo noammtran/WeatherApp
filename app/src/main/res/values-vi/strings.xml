@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">USTH Weather</string>
+
+    <string name="city_hanoi">HÀ NỘI, VIỆT NAM</string>
+    <string name="city_paris">PARIS, PHÁP</string>
+    <string name="city_toulouse">TOULOUSE, PHÁP</string>
+
+    <string name="label_city">Paris</string>
+    <string name="label_desc_cloudy">Nhiều mây</string>
+    <string name="label_temp_c">%1$d°C</string>
+
+    <string-array name="days_short">
+        <item>T2</item><item>T3</item><item>T4</item>
+        <item>T5</item><item>T6</item><item>T7</item><item>CN</item>
+    </string-array>
+    <string-array name="conds_sample">
+        <item>Ít mây</item>
+        <item>Mưa rào</item>
+        <item>Mưa</item>
+        <item>Mưa rải rác</item>
+        <item>Nhiều mây</item>
+        <item>Dông</item>
+        <item>Dông rải rác</item>
+    </string-array>
+</resources>

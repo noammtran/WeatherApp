@@ -1,0 +1,29 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">USTH Weather</string>
+
+    <!-- Tabs -->
+    <string name="city_hanoi">HANOI, VIETNAM</string>
+    <string name="city_paris">PARIS, FRANCE</string>
+    <string name="city_toulouse">TOULOUSE, FRANCE</string>
+
+    <!-- WeatherFragment -->
+    <string name="label_city">Paris</string>
+    <string name="label_desc_cloudy">Cloudy</string>
+    <string name="label_temp_c">%1$d°C</string>
+
+    <!-- ForecastFragment -->
+    <string-array name="days_short">
+        <item>Mon</item><item>Tue</item><item>Wed</item>
+        <item>Thu</item><item>Fri</item><item>Sat</item><item>Sun</item>
+    </string-array>
+    <string-array name="conds_sample">
+        <item>Partly Cloudy</item>
+        <item>Showers</item>
+        <item>Rain</item>
+        <item>Scattered Showers</item>
+        <item>Mostly Cloudy</item>
+        <item>Thunderstorms</item>
+        <item>Scattered Thunderstorms</item>
+    </string-array>
+</resources>
