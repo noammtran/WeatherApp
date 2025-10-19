@@ -43,6 +43,27 @@ public class WeatherFragment extends Fragment {
         tvCity.setText(resolveCityLabel());
         tvDesc.setText(R.string.label_desc_cloudy);
         img.setImageResource(R.drawable.ic_cloudy);
+        img.setOnClickListener(view -> {
+            ViewGroup.LayoutParams params = view.getLayoutParams();
+
+            int currentWidth = params.width;
+            if (currentWidth == ViewGroup.LayoutParams.WRAP_CONTENT
+                    || currentWidth == ViewGroup.LayoutParams.MATCH_PARENT) {
+                currentWidth = view.getWidth();
+            }
+
+            int currentHeight = params.height;
+            if (currentHeight == ViewGroup.LayoutParams.WRAP_CONTENT
+                    || currentHeight == ViewGroup.LayoutParams.MATCH_PARENT) {
+                currentHeight = view.getHeight();
+            }
+
+            if (currentWidth > 1 && currentHeight > 1) {
+                params.width = Math.max(1, currentWidth / 2);
+                params.height = Math.max(1, currentHeight / 2);
+                view.setLayoutParams(params);
+            }
+        });
 
         return root;
     }
